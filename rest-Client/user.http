@@ -1,0 +1,41 @@
+### GetAll 
+GET http://localhost:3000/api/users
+
+
+### GetOne 
+GET http://localhost:3000/api/users/2
+Content-Type: application/json
+
+
+### Register
+POST  http://localhost:3000/api/users/auth/register
+Content-Type: application/json
+Authorization:  Bearer 
+
+{
+  "username":"hady",
+  "email": "hady@example.com",
+  "password": "123456789"
+}
+
+
+### login
+POST  http://localhost:3000/api/users/auth/login
+Content-Type: application/json
+Authorization:  Bearer 
+
+{
+  "email": "hady@example.com",
+  "password": "123456789"
+}
+
+
+### gey current user data  
+GET  http://localhost:3000/api/users/current-user
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTAyOTYyNX0.WT1j7kbg8s2UmdAUf6ACmOClHQgHJ217dZO7BZw49-4
+
+
+### DeleteONE 
+DELETE  http://localhost:3000/api/users/1
+Content-Type: application/json
