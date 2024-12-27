@@ -1,10 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  ParseIntPipe,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
@@ -16,6 +20,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { JWTPayLoadType } from 'src/utils/types';
 import { Roles } from './decorators/user-role.decorator';
 import { UserType } from '../utils/enums';
+import { UpdateUsertDto } from './dtos/update-user.dto';
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
@@ -33,8 +38,6 @@ export class UsersController {
     return this.userService.login(body);
   }
 
-
-
   // GET ~/api/users/current-User
   @Get('current-user')
   @UseGuards(AuthGuard) // to verfiy token only
@@ -45,8 +48,32 @@ export class UsersController {
   // GET :  ~/api/users
   @Get()
   @Roles(UserType.ADMIN) // admins only
-  @UseGuards(AuthRolesGuard) //   must come after @Roles   => to verfiy token and check role type
-  public getAllUsers() {
-    return this.userService.getAll();
+  @UseGuards(AuthRolesGuard) // must come after @Roles => to verify token and check role type
+  public async getAllUsers() {
+    const users = await this.userService.getAll(); // Fetch all users
+    const length = users.length; // Calculate the length of the users array
+    return { length, users }; // Return both users and their count
+  }
+
+  // PUT ~/api/users/:id
+  @Put()
+  @Roles(UserType.ADMIN, UserType.NORMAL_USER)
+  @UseGuards(AuthRolesGuard)
+  public updateUser(
+    @CurrentUser() payload: JWTPayLoadType,
+    @Body() body: UpdateUsertDto,
+  ) {
+    return this.userService.updateUser(payload.id, body);
+  }
+
+  // Delete ~/api/users/:id
+  @Delete(':id')
+  @Roles(UserType.ADMIN, UserType.NORMAL_USER)
+  @UseGuards(AuthRolesGuard)
+  public deleteUser(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() payload: JWTPayLoadType,
+  ) {
+    return this.userService.deleteUser(id, payload);
   }
 }

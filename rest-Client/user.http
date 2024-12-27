@@ -13,8 +13,8 @@ Content-Type: application/json
 Authorization:  Bearer 
 
 {
-  "username":"hady",
-  "email": "hadyhashim17@gmail.com",
+  "username":"hady90",
+  "email": "hadyhashim90@gmail.com",
   "password": "123456789"
 }
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 Authorization:  Bearer 
 
 {
-  "email": "hadyhashim17@gmail.com",
+  "email": "hadyhashim90@gmail.com",
   "password": "123456789"
 }
 
@@ -39,8 +39,19 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5
 
 
 
+### Update User
+PUT  http://localhost:3000/api/users
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3NzU1Nn0.eEtbqwgKcNf9GZl66LsMowANhYsMbk-vBLfnALbCoWc
+
+{
+  "username":"Hady Hady Hady"
+}
+
+
 
 
 ### DeleteONE 
-DELETE  http://localhost:3000/api/users/1
+DELETE  http://localhost:3000/api/users/7
 Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI4MDE4MX0.1NKK5Dg-1g7zOeGdEryTD1EgmX_ZRPGzb1QzAIuo_Xk

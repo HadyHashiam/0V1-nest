@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +14,9 @@ import { JWTPayLoadType } from '../utils/types';
 import { AccessTokenType } from '../utils/types';
 import { ConfigService } from '@nestjs/config';
 import { NotFoundException } from '@nestjs/common';
+import { UpdateUsertDto } from './dtos/update-user.dto';
+import { UserType } from 'src/utils/enums';
+import { console } from 'node:inspector/promises';
 
 @Injectable()
 export class UsersService {
@@ -21,8 +28,8 @@ export class UsersService {
   ) {}
 
   /*
-   * generate JSON WEB Token   JWT
-   * @param payload  JWT payload
+   * generate JSON WEB Token (JWT)
+   * @param payload => JWT payload
    * @returns token
    */
   private generateJwt(payload: JWTPayLoadType): Promise<string> {
@@ -30,19 +37,27 @@ export class UsersService {
   }
 
   /**
+   *  Hashing password
+   * @param password plain text => password
+   * @returns   hashedPassword
+   */
+  private async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+  }
+
+  /**
    * Create new User
    * @param {RegisterDto} registerDto  data for create new user  // {} if javascript
    * @returns    JWT (access token )
    */
-
   public async register(registerDto: RegisterDto): Promise<AccessTokenType> {
     const { email, password, username } = registerDto;
 
     const userFormDb = await this.usersRepository.findOne({ where: { email } });
     if (userFormDb) throw new BadRequestException('User already exists');
     // hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await this.hashPassword(password);
     // let to can create token // to rewrite in the variable
     let newUser = this.usersRepository.create({
       email,
@@ -85,7 +100,7 @@ export class UsersService {
    * @param id id of the logged in user
    * @returns  the user from db
    */
-  public async getCurrentUser(id: number): Promise<User>  {
+  public async getCurrentUser(id: number): Promise<User> {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
     return user;
@@ -99,11 +114,35 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  // update user
+  public async updateUser(id: number, updateUsertDto: UpdateUsertDto) {
+    const { password, username } = updateUsertDto;
+    const user = await this.usersRepository.findOne({ where: { id } });
 
+    user.username = username ?? user.username;
+    if (password) {
+      user.password = await this.hashPassword(password);
+    }
+    return this.usersRepository.save(user);
+  }
 
+  /**
+   * Delete user
+   * @param userId id of the user
+   * @param payload  JWTPayLoad
+   * @returns a success message
+   */
+  public async deleteUser(userId: number, payload: JWTPayLoadType) {
+    const user = await this.getCurrentUser(userId);
+    console.log(JSON.stringify(user));
+    if (user.id === payload?.id || payload?.userType === UserType.ADMIN) {
+      await this.usersRepository.remove(user);
+      return { message: 'User has been deleted successfully' };
+    }
+    throw new ForbiddenException('You are not allowed to delete this user');
+  }
 
   /*
-   *
    *
    *
    *
