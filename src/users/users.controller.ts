@@ -11,11 +11,9 @@ import {
 import { UsersService } from './user.service';
 import { RegisterDto } from './dtos/register.dto';
 import { LoginDto } from './dtos/login.dto';
-import { User } from './user.entity';
 import { AuthGuard } from './guards/auth.guard';
-import { CURRENT_TIMESTAMP } from '../utils/constant';
-import { CURRENT_USER_KEY } from 'src/utils/constant';
-
+import { CurrentUser } from './decorators/current-user.decorator';
+import { JWTPayLoadType } from 'src/utils/types';
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
@@ -33,13 +31,17 @@ export class UsersController {
     return this.userService.login(body);
   }
 
+  // // GET ~/api/users/current-User
+  // @Get('current-user')
+  // @UseGuards(AuthGuard)
+  // public getCurrentUser(@Req() request: any) {
+  //   const payload = request[CURRENT_USER_KEY];
+  //   return this.userService.getCurrentUser(payload.id);
+  // }
   // GET ~/api/users/current-User
   @Get('current-user')
   @UseGuards(AuthGuard)
-  public getCurrentUser(@Req() request: any) {
-    const payload = request[CURRENT_USER_KEY];
+  public getCurrentUser(@CurrentUser() payload: JWTPayLoadType) {
     return this.userService.getCurrentUser(payload.id);
   }
-
-
 }

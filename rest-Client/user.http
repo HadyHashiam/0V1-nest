@@ -14,7 +14,7 @@ Authorization:  Bearer
 
 {
   "username":"hady",
-  "email": "hady@example.com",
+  "email": "hadyhashim17@gmail.com",
   "password": "123456789"
 }
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 Authorization:  Bearer 
 
 {
-  "email": "hady@example.com",
+  "email": "hadyhashim17@gmail.com",
   "password": "123456789"
 }
 
@@ -33,7 +33,7 @@ Authorization:  Bearer
 ### gey current user data  
 GET  http://localhost:3000/api/users/current-user
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3MjY3MH0.x0PpoVtmdBdiQnfg-u0eVKn3GHcFgWh2hUsX9YBElxI
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3Mzc5NX0.cB5hkhT3PtR8e6tLxmVWuM_QJR_OJQC1jkq9Lz_IK5o
 
 
 ### DeleteONE 
