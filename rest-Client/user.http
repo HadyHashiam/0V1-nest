@@ -1,6 +1,6 @@
 ### GetAll 
 GET http://localhost:3000/api/users
-
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3NzU1Nn0.eEtbqwgKcNf9GZl66LsMowANhYsMbk-vBLfnALbCoWc
 
 ### GetOne 
 GET http://localhost:3000/api/users/2
@@ -34,6 +34,11 @@ Authorization:  Bearer
 GET  http://localhost:3000/api/users/current-user
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3Mzc5NX0.cB5hkhT3PtR8e6tLxmVWuM_QJR_OJQC1jkq9Lz_IK5o
+
+
+
+
+
 
 
 ### DeleteONE 
