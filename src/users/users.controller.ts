@@ -5,7 +5,6 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Headers,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -42,11 +41,5 @@ export class UsersController {
     return this.userService.getCurrentUser(payload.id);
   }
 
-  //   // GET ~/api/users/current-User
-  // @Get('current-User')
-  //  @UseGuards(AuthGuard)
-  // public getCurrentUser(@Headers() headers: any) {
-  //   console.log(headers.authorization);
-  //   return this.userService.getCurrentUser(headers.authorization);
-  // }
+
 }

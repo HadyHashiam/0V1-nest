@@ -33,7 +33,7 @@ Authorization:  Bearer
 ### gey current user data  
 GET  http://localhost:3000/api/users/current-user
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTAyOTYyNX0.WT1j7kbg8s2UmdAUf6ACmOClHQgHJ217dZO7BZw49-4
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTczNTI3MjY3MH0.x0PpoVtmdBdiQnfg-u0eVKn3GHcFgWh2hUsX9YBElxI
 
 
 ### DeleteONE 
